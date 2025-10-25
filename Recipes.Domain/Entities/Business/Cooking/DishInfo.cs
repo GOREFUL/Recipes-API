@@ -32,8 +32,6 @@ public class DishInfo
     #region one-to-many
     public ICollection<Image> Images { get; set; }
         = new List<Image>();
-    public ICollection<Step> Steps { get; set; }
-        = new List<Step>();
     public ICollection<IngredientUnit> IngredientUnits { get; set; }
         = new List<IngredientUnit>();
     public ICollection<Allergy> Allergies { get; set; }

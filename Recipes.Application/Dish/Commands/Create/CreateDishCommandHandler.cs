@@ -11,13 +11,12 @@ using Dishs = Recipes.Domain.Entities.Business.Cooking.Dish;
 using IngredientUnitss = Recipes.Domain.Entities.Business.Cooking.IngredientUnit;
 using Macronutrientss = Recipes.Domain.Entities.Business.Cooking.Advanced.Macronutrients;
 using Micronutrientss = Recipes.Domain.Entities.Business.Cooking.Advanced.Micronutrients;
-using Stepss = Recipes.Domain.Entities.Business.Cooking.Step;
 using Imagess = Recipes.Domain.Entities.Business.Cooking.Image;
 
 namespace Recipes.Application.Dish.Commands.Create;
 public class CreateDishCommandHandler
     (ILogger<CreateDishCommandHandler> logger, IUnitOfWork uow, IDishRepository dishes, IDishInfoRepository infos,
-    IDishImageRepository images, IStepRepository steps, IIngredientUnitRepository units, IMacronutrientsRepository macros,
+    IDishImageRepository images, IIngredientUnitRepository units, IMacronutrientsRepository macros,
     IMicronutrientsRepository micros, IAllergyRepository allergies, ICuisineRepository cuisines, IDishTagRepository tags,
     IMapper mapper) : IRequestHandler<CreateDishCommand, int>
 {
@@ -51,14 +50,6 @@ public class CreateDishCommandHandler
                 var micro = mapper.Map<Micronutrientss>(request.Dto.Info.Micros);
                 micro.DishInfoId = info.Id;
                 await micros.AddAsync(micro, cancellationToken);
-            }
-
-            // steps
-            if(request.Dto.Steps.Count > 0)
-            {
-                var _steps = mapper.Map<List<Stepss>>(request.Dto.Steps);
-                foreach(var s in _steps) s.DishInfoId = info.Id;
-                await steps.AddRangeAsync(_steps, cancellationToken);
             }
 
             // ingredient units

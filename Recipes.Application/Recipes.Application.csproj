@@ -29,8 +29,6 @@
     <Folder Include="Micronutrients\Queries\" />
     <Folder Include="IngredientUnit\Commands\" />
     <Folder Include="IngredientUnit\Queries\" />
-    <Folder Include="Step\Commands\" />
-    <Folder Include="Step\Queries\" />
   </ItemGroup>
 
 </Project>

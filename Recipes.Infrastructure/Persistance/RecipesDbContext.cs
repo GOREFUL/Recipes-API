@@ -30,7 +30,6 @@ public class RecipesDbContext(DbContextOptions<RecipesDbContext> options)
     public DbSet<Dish> Dishes => Set<Dish>();
     public DbSet<DishInfo> DishInfos => Set<DishInfo>();
     public DbSet<IngredientUnit> IngredientUnits => Set<IngredientUnit>();
-    public DbSet<Step> Steps => Set<Step>();
     public DbSet<Image> Images => Set<Image>();
     public DbSet<Plan> Plans => Set<Plan>();
     public DbSet<FavoriteDish> FavoriteDishes => Set<FavoriteDish>();
@@ -79,7 +78,6 @@ public class RecipesDbContext(DbContextOptions<RecipesDbContext> options)
         builder.ApplyConfiguration(new ImageConfig());
         builder.ApplyConfiguration(new IngredientUnitConfig());
         builder.ApplyConfiguration(new PlanConfig());
-        builder.ApplyConfiguration(new StepConfig());
         // Advanced
         builder.ApplyConfiguration(new MacronutrientsConfig());
         builder.ApplyConfiguration(new MicronutrientsConfig());

@@ -60,7 +60,6 @@ public static class ServiceCollectionExtensions
         src.AddScoped<IDishRepository, DishRepository>();
         src.AddScoped<IDishInfoRepository, DishInfoRepository>();
         src.AddScoped<IDishImageRepository, DishImageRepository>();
-        src.AddScoped<IStepRepository, StepRepository>();
         src.AddScoped<IIngredientUnitRepository, IngredientUnitRepository>();
         src.AddScoped<IMacronutrientsRepository, MacronutrientsRepository>();
         src.AddScoped<IMicronutrientsRepository, MicronutrientsRepository>();
