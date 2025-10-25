@@ -7,6 +7,7 @@ public class Plan
 
     #region attributes
     public TimeSpan TimePoint { get; set; }
+    public DateOnly Date { get; set; }
     public byte Yield { get; set; }
     public string Note { get; set; } = string.Empty;
     #endregion

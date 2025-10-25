@@ -14,6 +14,7 @@ using Recipes.Domain.Repositories.Read;
 using Recipes.Domain.Repositories.System;
 using Recipes.Infrastructure.Auth;
 using Recipes.Infrastructure.Persistance;
+using Recipes.Infrastructure.Repositories.Business;
 using Recipes.Infrastructure.Repositories.Business.Cooking;
 using Recipes.Infrastructure.Repositories.Business.Cooking.Advanced;
 using Recipes.Infrastructure.Repositories.Business.Enumerations;
@@ -64,6 +65,7 @@ public static class ServiceCollectionExtensions
         src.AddScoped<IDishImageRepository, DishImageRepository>();
         src.AddScoped<IIngredientUnitRepository, IngredientUnitRepository>();
         src.AddScoped<IMacronutrientsRepository, MacronutrientsRepository>();
+        src.AddScoped<IPlanRepository, PlanRepository>();
 
         // lookups
         src.AddScoped<ILevelRepository, LevelRepository>();
@@ -76,8 +78,6 @@ public static class ServiceCollectionExtensions
         src.AddScoped<IMeasureUnitReadRepository, MeasureUnitReadRepository>();
         src.AddScoped<IIngredientReadRepository, IngredientReadRepository>();
         src.AddScoped<ILevelReadRepository, LevelReadRepository>();
-
-
 
         src.AddScoped<IJwtTokenService, JwtTokenService>();
         src.AddScoped<IIdentityRepository, IdentityRepository>();

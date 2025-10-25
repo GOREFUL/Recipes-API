@@ -17,6 +17,9 @@ public class PlanConfig
         builder.Property(e => e.Yield)
             .IsRequired();
 
+        builder.Property(e => e.Date)
+            .IsRequired();
+
         builder.Property(e => e.Note)
             .HasMaxLength(2048)
             .IsRequired(false);

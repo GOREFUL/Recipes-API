@@ -8,7 +8,6 @@ public class CreateDishDto
 {
     public string Name { get; set; } = default!;
     public string Description { get; set; } = default!;
-    public int LevelId { get; set; }
     public CreateDishInfoDto Info { get; set; } = default!;
     public List<CreateIngredientUnitDto> Ingredients { get; set; } = new();
     public List<CreateImageDto> ImageUrls { get; set; } = new();
