@@ -1,0 +1,34 @@
+@Recipes.API_HostAddress = https://localhost:7198
+
+GET {{Recipes.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
+
+GET {{Recipes.API_HostAddress}}/api/identity/me
+
+###
+
+POST {{Recipes.API_HostAddress}}/api/identity
+Content-Type: application/json
+
+{
+    "email": "string@gmail.com",
+    "password": "string123",
+    "displayName": "string"
+}
+
+###
+
+GET {{Recipes.API_HostAddress}}/api/identity/{id}
+
+###
+POST {{Recipes.API_HostAddress}}/api/login
+Content-Type: application/json
+
+{
+    "email": "string@gmail.com",
+    "password": "string123"
+}
+
+###

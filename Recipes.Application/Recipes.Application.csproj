@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="15.0.1" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.1" />
+    <PackageReference Include="MediatR" Version="13.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Recipes.Domain\Recipes.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="DishInfo\Commands\" />
+    <Folder Include="DishInfo\Queries\" />
+    <Folder Include="Dish\Queries\" />
+    <Folder Include="Features\Lookups\Queries\" />
+    <Folder Include="Posts\Queries\" />
+    <Folder Include="Macronutrients\Commands\" />
+    <Folder Include="Macronutrients\Queries\" />
+    <Folder Include="Micronutrients\Commands\" />
+    <Folder Include="Micronutrients\Queries\" />
+    <Folder Include="IngredientUnit\Commands\" />
+    <Folder Include="IngredientUnit\Queries\" />
+    <Folder Include="Step\Commands\" />
+    <Folder Include="Step\Queries\" />
+  </ItemGroup>
+
+</Project>
