@@ -4,7 +4,9 @@
 ## Get latest from https://github.com/github/gitignore/blob/main/VisualStudio.gitignore
 
 
-
+*.zip
+*.7z
+*.rar
 # User-specific files
 *.rsuser
 *.suo
