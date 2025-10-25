@@ -16,20 +16,10 @@ using Macronutrientss = Recipes.Domain.Entities.Business.Cooking.Advanced.Macron
 namespace Recipes.Application.Dish.Commands.Create;
 
 public class CreateDishCommandHandler
-    (ILogger<CreateDishCommandHandler> logger,
-     IUnitOfWork uow,
-     IDishRepository dishes,
-     IDishInfoRepository infos,
-     IDishImageRepository images,
-     IIngredientUnitRepository units,
-     IMacronutrientsRepository macros,
-     IAllergyRepository allergies,
-     ICuisineRepository cuisines,
-     IMapper mapper,
-     IMeasureUnitReadRepository measureUnitReadRepo,
-     IIngredientReadRepository ingredientReadRepo,
-     ILevelReadRepository levelReadRepo,
-     ICurrentUser currentUser)
+    (ILogger<CreateDishCommandHandler> logger, IUnitOfWork uow, IDishRepository dishes,
+     IDishInfoRepository infos, IDishImageRepository images, IIngredientUnitRepository units, IMacronutrientsRepository macros,
+     IAllergyRepository allergies, ICuisineRepository cuisines, IMapper mapper, IMeasureUnitReadRepository measureUnitReadRepo,
+     IIngredientReadRepository ingredientReadRepo, ILevelReadRepository levelReadRepo, ICurrentUser currentUser)
     : IRequestHandler<CreateDishCommand, int>
 {
     public async Task<int> Handle(CreateDishCommand request, CancellationToken ct)
@@ -46,7 +36,7 @@ public class CreateDishCommandHandler
 
         try
         {
-            // 1) Dish (не беремо CreatedAt з DTO)
+            // 1) Dish
             var dish = mapper.Map<Dishs>(request.Dto);
             dish.CreatedAt = DateTime.UtcNow;
             dish.CookId = currentUser.UserId!.Value;
@@ -55,10 +45,7 @@ public class CreateDishCommandHandler
             await uow.SaveChangesAsync(ct);
 
             // 2) DishInfo
-            // 2) DishInfo
             var infoDto = request.Dto.Info;
-
-            // перевір існування рівня
             if (infoDto.LevelId <= 0 || !await levelReadRepo.ExistsAsync(infoDto.LevelId, ct))
                 throw new InvalidOperationException($"LevelId {infoDto.LevelId} does not exist.");
 
@@ -66,7 +53,7 @@ public class CreateDishCommandHandler
             info.DishId = dish.Id;
 
             await infos.AddAsync(info, ct);
-            await uow.SaveChangesAsync(ct); // щоб отримати info.Id
+            await uow.SaveChangesAsync(ct);
 
             // 3) 1-1 Macronutrients
             if (request.Dto.Info.Macros is not null)
@@ -82,11 +69,9 @@ public class CreateDishCommandHandler
                 var mapped = mapper.Map<List<IngredientUnitss>>(request.Dto.Ingredients);
                 foreach (var u in mapped) u.DishInfoId = info.Id;
 
-                // зберігаємо лише валідні (>0)
                 var muIds = mapped.Select(u => u.MeasurementUnitId).Where(id => id > 0).Distinct().ToArray();
                 var ingIds = mapped.Select(u => u.IngredientId).Where(id => id > 0).Distinct().ToArray();
 
-                // читаємо існуючі id через репозиторії читання
                 var existingMu = await measureUnitReadRepo.GetExistingIdsAsync(muIds, ct);
                 var existingIng = await ingredientReadRepo.GetExistingIdsAsync(ingIds, ct);
 
@@ -99,7 +84,6 @@ public class CreateDishCommandHandler
 
                 await units.AddRangeAsync(mapped, ct);
             }
-
 
             // 5) Images (URL)
             if (request.Dto.ImageUrls?.Any() == true)

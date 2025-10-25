@@ -17,7 +17,7 @@ public sealed class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<
 
             foreach (var v in _validators)
             {
-                var result = await v.ValidateAsync(context, ct);  // ← async тут дозволено
+                var result = await v.ValidateAsync(context, ct);
                 failures.AddRange(result.Errors.Where(f => f != null));
             }
 

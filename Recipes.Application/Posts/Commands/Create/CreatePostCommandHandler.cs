@@ -8,37 +8,46 @@ using Recipes.Domain.Repositories.Business.Social;
 
 namespace Recipes.Application.Posts.Commands.Create;
 public class CreatePostCommandHandler
-    (ILogger<CreatePostCommandHandler> logger, IUnitOfWork uow, IPostRepository posts,
-    IMediaUnitRepository medias, ISocialDataRepository socials, IMapper mapper)
+    (ILogger<CreatePostCommandHandler> logger,
+     IUnitOfWork uow,
+     IPostRepository posts,
+     IMediaUnitRepository medias,  
+     ISocialDataRepository socials,
+     ICurrentUser current)         
     : IRequestHandler<CreatePostCommand, int>
 {
-    public async Task<int> Handle(CreatePostCommand request, CancellationToken cancellationToken)
+    public async Task<int> Handle(CreatePostCommand request, CancellationToken ct)
     {
         logger.LogInformation("Creating a new post");
-        if (!await posts.DishExistsAsync(request.Dto.DishId, cancellationToken))
+
+        if (!current.UserId.HasValue)
+            throw new UnauthorizedAccessException("User is not authenticated");
+
+        if (!await posts.DishExistsAsync(request.Dto.DishId, ct))
             throw new NotFoundException("Dish", request.Dto.DishId.ToString());
 
-        await uow.BeginAsync(cancellationToken);
-
+        await uow.BeginAsync(ct);
         try
         {
-            var post = mapper.Map<Post>(request.Dto);
-            var social = post.SocialData;
-            var media = post.MediaUnit;
+            var post = new Post
+            {
+                Name = request.Dto.Name.Trim(),
+                Description = request.Dto.Description?.Trim() ?? string.Empty,
+                DishId = request.Dto.DishId,
+                UserId = current.UserId.Value,
+                SocialData = new SocialData(),
+                MediaUnit = new MediaUnit { Url = request.Dto.Url.Trim() }
+            };
 
-            await posts.AddAsync(post, cancellationToken);
-
-            if (social != null) await socials.AddAsync(social, cancellationToken);
-            if(media != null) await medias.AddAsync(media, cancellationToken);
-
-            await uow.SaveChangesAsync(cancellationToken);
-            await uow.CommitAsync(cancellationToken);
+            await posts.AddAsync(post, ct);
+            await uow.SaveChangesAsync(ct);
+            await uow.CommitAsync(ct);
 
             return post.Id;
         }
         catch
         {
-            await uow.RollbackAsync(cancellationToken);
+            await uow.RollbackAsync(ct);
             logger.LogError("Error occurred while creating a new post");
             throw;
         }
