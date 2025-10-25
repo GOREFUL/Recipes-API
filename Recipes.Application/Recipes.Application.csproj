@@ -21,7 +21,6 @@
     <Folder Include="DishInfo\Commands\" />
     <Folder Include="DishInfo\Queries\" />
     <Folder Include="Dish\Queries\" />
-    <Folder Include="Features\Lookups\Queries\" />
     <Folder Include="Posts\Queries\" />
     <Folder Include="Macronutrients\Commands\" />
     <Folder Include="Macronutrients\Queries\" />

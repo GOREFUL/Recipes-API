@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using FluentValidation;
+using MediatR;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
 using Recipes.API.Auth;
-using Recipes.Infrastructure.Extensions;
 
 namespace Recipes.API.Extensions;
 
@@ -19,7 +21,7 @@ public static class WebApplicationBuilderExtensions
         {
             opt.AddPolicy("SelfOrAdmin", policy =>
             {
-                policy.Requirements.Add(new Auth.SelfOrAdminRequirement());
+                policy.Requirements.Add(new SelfOrAdminRequirement());
             });
         });
         src.Services.AddSingleton<IAuthorizationHandler, SelfOrAdminHandler>();

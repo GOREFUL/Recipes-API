@@ -10,6 +10,7 @@ using Recipes.Domain.Repositories.Business.Cooking;
 using Recipes.Domain.Repositories.Business.Cooking.Advanced;
 using Recipes.Domain.Repositories.Business.Enumerations;
 using Recipes.Domain.Repositories.Business.Social;
+using Recipes.Domain.Repositories.Read;
 using Recipes.Domain.Repositories.System;
 using Recipes.Infrastructure.Auth;
 using Recipes.Infrastructure.Persistance;
@@ -17,6 +18,7 @@ using Recipes.Infrastructure.Repositories.Business.Cooking;
 using Recipes.Infrastructure.Repositories.Business.Cooking.Advanced;
 using Recipes.Infrastructure.Repositories.Business.Enumerations;
 using Recipes.Infrastructure.Repositories.Business.Social;
+using Recipes.Infrastructure.Repositories.Read;
 using Recipes.Infrastructure.Repositories.System;
 using Recipes.Infrastructure.Security;
 using Recipes.Infrastructure.UnitOfWork;
@@ -69,6 +71,12 @@ public static class ServiceCollectionExtensions
         src.AddScoped<IMeasureUnitRepository, MeasureUnitRepository>();
         src.AddScoped<IAllergyRepository, AllergyRepository>();
         src.AddScoped<ICuisineRepository, CuisineRepository>();
+
+        // Read
+        src.AddScoped<IMeasureUnitReadRepository, MeasureUnitReadRepository>();
+        src.AddScoped<IIngredientReadRepository, IngredientReadRepository>();
+        src.AddScoped<ILevelReadRepository, LevelReadRepository>();
+
 
 
         src.AddScoped<IJwtTokenService, JwtTokenService>();

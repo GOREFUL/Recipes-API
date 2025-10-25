@@ -3,6 +3,7 @@ using Recipes.API.Middleware;
 using Recipes.Application.Extensions;
 using Recipes.Domain.Entities.UserContext;
 using Recipes.Infrastructure.Extensions;
+using Recipes.Infrastructure.Seeders;
 using Serilog;
 
 #region builder
@@ -17,6 +18,11 @@ src.Host.UseSerilog((ctx, cfg) => cfg.ReadFrom.Configuration(ctx.Configuration))
 
 #region app
 var app = src.Build();
+
+await app.Services.SeedRolesAsync();
+await app.Services.SeedAdminUserAsync(
+    email: src.Configuration["BootstrapAdmin:Email"]!,
+    password: src.Configuration["BootstrapAdmin:Password"]!);
 
 app.UseSwagger();
 app.UseSwaggerUI();

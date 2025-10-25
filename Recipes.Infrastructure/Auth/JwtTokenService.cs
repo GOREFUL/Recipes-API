@@ -18,14 +18,15 @@ public class JwtTokenService(ILogger<JwtTokenService> logger,
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(opt.Value.Key));
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-        var roles = await users.GetRolesAsync(user);
+        var roles = await users.GetUsersInRoleAsync("Admin"); 
+        var userRoles = await users.GetRolesAsync(user);
         var claims = new List<Claim>
         {
             new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
             new Claim(ClaimTypes.Name, user.DisplayName ?? user.UserName ?? user.Email ?? user.Id.ToString()),
             new Claim(ClaimTypes.Email, user.Email ?? string.Empty)
         };
-        claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
+        claims.AddRange(userRoles.Select(r => new Claim(ClaimTypes.Role, r)));
 
         var now = DateTime.UtcNow;
         var expires = now.AddMinutes(opt.Value.AccessTokenExpirationMinutes);
@@ -34,7 +35,6 @@ public class JwtTokenService(ILogger<JwtTokenService> logger,
             issuer: opt.Value.Issuer,
             audience: opt.Value.Audience,
             claims: claims,
-            notBefore: now,
             expires: expires,
             signingCredentials: creds);
 

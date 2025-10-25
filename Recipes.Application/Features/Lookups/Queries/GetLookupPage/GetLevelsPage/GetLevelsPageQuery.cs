@@ -1,0 +1,6 @@
+﻿using MediatR;
+using Recipes.Application.Features.Lookups.Dto.Lookup;
+
+namespace Recipes.Application.Features.Lookups.Queries.GetLookupPage.GetLevelsPage;
+public record GetLevelsPageQuery(string? Q, int Page = 1, int PageSize = 20)
+    : IRequest<Paged<LookupItemDto>>;

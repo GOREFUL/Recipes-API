@@ -8,10 +8,10 @@ using Recipes.Domain.Repositories.Business.Enumerations;
 
 namespace Recipes.Application.Features.Lookups.Commands.CreateCommand.CreateCuisine;
 public class CreateCuisineCommandHandler
-    (ILogger<CreateLevelCommandHandler> logger, IUnitOfWork uow, ICuisineRepository repo)
-    : IRequestHandler<CreateAllergyCommand, int>
+    (ILogger<CreateCuisineCommandHandler> logger, IUnitOfWork uow, ICuisineRepository repo)
+    : IRequestHandler<CreateCuisineCommand, int>
 {
-    public async Task<int> Handle(CreateAllergyCommand request, CancellationToken cancellationToken)
+    public async Task<int> Handle(CreateCuisineCommand request, CancellationToken cancellationToken)
     {
         logger.LogInformation("Handling CreateCuisineCommand");
         await uow.BeginAsync(cancellationToken);

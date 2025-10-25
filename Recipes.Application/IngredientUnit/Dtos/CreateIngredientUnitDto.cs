@@ -2,6 +2,6 @@
 public class CreateIngredientUnitDto
 {
     public int IngredientId { get; set; }
-    public int MeasureUnitId { get; set; }
+    public int MeasurementUnitId { get; set; }
     public float Value { get; set; }
 }

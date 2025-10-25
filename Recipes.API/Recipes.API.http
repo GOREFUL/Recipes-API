@@ -32,3 +32,8 @@ Content-Type: application/json
 }
 
 ###
+
+@q=string
+GET {{Recipes.API_HostAddress}}/api/lookups/cuisines?q={{q}}
+
+###

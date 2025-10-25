@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using FluentValidation;
+using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -19,6 +20,7 @@ public class DishesController(IMediator mediator) : ControllerBase
         var id = await mediator.Send(new CreateDishCommand(dto), ct);
         return CreatedAtAction(nameof(Create), new { id }, id);
     }
+
 
     // заглушка під майбутній GET
     [AllowAnonymous]
