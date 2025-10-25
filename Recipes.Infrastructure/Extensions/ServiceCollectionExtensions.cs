@@ -70,7 +70,6 @@ public static class ServiceCollectionExtensions
         src.AddScoped<IMeasureUnitRepository, MeasureUnitRepository>();
         src.AddScoped<IAllergyRepository, AllergyRepository>();
         src.AddScoped<ICuisineRepository, CuisineRepository>();
-        src.AddScoped<IDishTagRepository, DishTagRepository>();
 
 
         src.AddScoped<IJwtTokenService, JwtTokenService>();

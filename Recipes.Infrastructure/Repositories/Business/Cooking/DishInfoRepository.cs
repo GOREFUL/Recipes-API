@@ -31,14 +31,4 @@ public class DishInfoRepository : EfRepositoryBase<DishInfo>, IDishInfoRepositor
             info.Cuisines.Add(cuisine);
         }
     }
-
-    public async Task AddTagsAsync(int dishInfoId, IReadOnlyCollection<DishTag> tags, CancellationToken token)
-    {
-        var info = await Set.Include(x => x.Tags).FirstAsync(x => x.Id == dishInfoId, token);
-        foreach (var tag in tags)
-        {
-            info.Tags.Add(tag);
-        }
-    }
-
 }

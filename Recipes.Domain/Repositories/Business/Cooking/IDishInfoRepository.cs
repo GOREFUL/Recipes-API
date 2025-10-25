@@ -11,5 +11,4 @@ public interface IDishInfoRepository
     // m2m
     Task AddAllergiesAsync(int dishInfoId, IReadOnlyCollection<Allergy> allergies, CancellationToken token);
     Task AddCuisinesAsync(int dishInfoId, IReadOnlyCollection<Cuisine> cuisines, CancellationToken token);
-    Task AddTagsAsync(int dishInfoId, IReadOnlyCollection<DishTag> tags, CancellationToken token);
 }

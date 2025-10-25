@@ -41,7 +41,6 @@ public class RecipesDbContext(DbContextOptions<RecipesDbContext> options)
     // --- Business.Enumerations ---
     public DbSet<Allergy> Allergies => Set<Allergy>();
     public DbSet<Cuisine> Cuisines => Set<Cuisine>();
-    public DbSet<DishTag> DishTags => Set<DishTag>();
     public DbSet<Ingredient> Ingredients => Set<Ingredient>();
     public DbSet<Level> Levels => Set<Level>();
     public DbSet<MeasurementUnit> MeasurementUnits => Set<MeasurementUnit>();
@@ -87,7 +86,6 @@ public class RecipesDbContext(DbContextOptions<RecipesDbContext> options)
         // ===== Business.Enumerations =====
         builder.ApplyConfiguration(new AllergyConfig());
         builder.ApplyConfiguration(new CuisineConfig());
-        builder.ApplyConfiguration(new DishTagConfig());
         builder.ApplyConfiguration(new IngredientConfig());
         builder.ApplyConfiguration(new LevelConfig());
         builder.ApplyConfiguration(new MeasurementUnitConfig());

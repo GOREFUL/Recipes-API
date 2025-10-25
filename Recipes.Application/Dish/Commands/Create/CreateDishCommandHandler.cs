@@ -17,7 +17,7 @@ namespace Recipes.Application.Dish.Commands.Create;
 public class CreateDishCommandHandler
     (ILogger<CreateDishCommandHandler> logger, IUnitOfWork uow, IDishRepository dishes, IDishInfoRepository infos,
     IDishImageRepository images, IIngredientUnitRepository units, IMacronutrientsRepository macros,
-    IMicronutrientsRepository micros, IAllergyRepository allergies, ICuisineRepository cuisines, IDishTagRepository tags,
+    IMicronutrientsRepository micros, IAllergyRepository allergies, ICuisineRepository cuisines,
     IMapper mapper) : IRequestHandler<CreateDishCommand, int>
 {
     public async Task<int> Handle(CreateDishCommand request, CancellationToken cancellationToken)
@@ -78,11 +78,6 @@ public class CreateDishCommandHandler
             {
                 var ent = await cuisines.GetByIdsAsync(request.Dto.CuisineIds, cancellationToken);
                 await infos.AddCuisinesAsync(info.Id, ent, cancellationToken);
-            }
-            if (request.Dto.TagIds.Count > 0)
-            {
-                var ent = await tags.GetByIdsAsync(request.Dto.TagIds, cancellationToken);
-                await infos.AddTagsAsync(info.Id, ent, cancellationToken);
             }
 
             await uow.SaveChangesAsync(cancellationToken);

@@ -38,8 +38,6 @@ public class DishInfo
     = new List<Allergy>();
     public ICollection<Cuisine> Cuisines { get; set; }
         = new List<Cuisine>();
-    public ICollection<DishTag> Tags { get; set; }
-        = new List<DishTag>();
 
     #endregion
 
