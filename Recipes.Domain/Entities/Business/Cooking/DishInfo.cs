@@ -22,7 +22,6 @@ public class DishInfo
     #region one-to-one
     public Dish Dish { get; set; } = null!;
     public Macronutrients Macronutrients { get; set; } = null!;
-    public Micronutrients Micronutrients { get; set; } = null!;
     #endregion
 
     #region many-to-one

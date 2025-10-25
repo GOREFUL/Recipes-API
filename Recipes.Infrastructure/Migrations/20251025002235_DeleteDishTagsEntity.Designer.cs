@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Recipes.Infrastructure.Persistance;
 
@@ -11,9 +12,11 @@ using Recipes.Infrastructure.Persistance;
 namespace Recipes.Infrastructure.Migrations
 {
     [DbContext(typeof(RecipesDbContext))]
-    partial class RecipesDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251025002235_DeleteDishTagsEntity")]
+    partial class DeleteDishTagsEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -221,6 +224,40 @@ namespace Recipes.Infrastructure.Migrations
                         .IsUnique();
 
                     b.ToTable("Macronutrients", (string)null);
+                });
+
+            modelBuilder.Entity("Recipes.Domain.Entities.Business.Cooking.Advanced.Micronutrients", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<float?>("Calcium")
+                        .HasColumnType("real");
+
+                    b.Property<int>("DishInfoId")
+                        .HasColumnType("int");
+
+                    b.Property<float?>("Iron")
+                        .HasColumnType("real");
+
+                    b.Property<float?>("Potassium")
+                        .HasColumnType("real");
+
+                    b.Property<float?>("Sodium")
+                        .HasColumnType("real");
+
+                    b.Property<float?>("VitaminD")
+                        .HasColumnType("real");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DishInfoId")
+                        .IsUnique();
+
+                    b.ToTable("Micronutrients", (string)null);
                 });
 
             modelBuilder.Entity("Recipes.Domain.Entities.Business.Cooking.Dish", b =>
@@ -1090,6 +1127,17 @@ namespace Recipes.Infrastructure.Migrations
                     b.Navigation("DishInfo");
                 });
 
+            modelBuilder.Entity("Recipes.Domain.Entities.Business.Cooking.Advanced.Micronutrients", b =>
+                {
+                    b.HasOne("Recipes.Domain.Entities.Business.Cooking.DishInfo", "DishInfo")
+                        .WithOne("Micronutrients")
+                        .HasForeignKey("Recipes.Domain.Entities.Business.Cooking.Advanced.Micronutrients", "DishInfoId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("DishInfo");
+                });
+
             modelBuilder.Entity("Recipes.Domain.Entities.Business.Cooking.Dish", b =>
                 {
                     b.HasOne("Recipes.Domain.Entities.UserContext.ApplicationUser", "Cook")
@@ -1439,6 +1487,9 @@ namespace Recipes.Infrastructure.Migrations
                     b.Navigation("IngredientUnits");
 
                     b.Navigation("Macronutrients")
+                        .IsRequired();
+
+                    b.Navigation("Micronutrients")
                         .IsRequired();
                 });
 

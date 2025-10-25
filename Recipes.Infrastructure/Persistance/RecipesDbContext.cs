@@ -36,7 +36,6 @@ public class RecipesDbContext(DbContextOptions<RecipesDbContext> options)
 
     // Advanced
     public DbSet<Macronutrients> Macronutrients => Set<Macronutrients>();
-    public DbSet<Micronutrients> Micronutrients => Set<Micronutrients>();
 
     // --- Business.Enumerations ---
     public DbSet<Allergy> Allergies => Set<Allergy>();
@@ -79,7 +78,6 @@ public class RecipesDbContext(DbContextOptions<RecipesDbContext> options)
         builder.ApplyConfiguration(new PlanConfig());
         // Advanced
         builder.ApplyConfiguration(new MacronutrientsConfig());
-        builder.ApplyConfiguration(new MicronutrientsConfig());
         // Links
         builder.ApplyConfiguration(new FavoriteDishConfig());
 

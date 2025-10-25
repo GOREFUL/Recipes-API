@@ -1,5 +1,4 @@
 ﻿using Recipes.Application.Macronutrients.Dtos;
-using Recipes.Application.Micronutrients.Dtos;
 
 namespace Recipes.Application.DishInfo.Dtos;
 public class CreateDishInfoDto
@@ -10,5 +9,4 @@ public class CreateDishInfoDto
     public short ServingSize { get; set; }
     public string? Note { get; set; }
     public CreateMacronutrientsDto? Macros { get; set; }
-    public CreateMicronutrientsDto? Micros { get; set; }
 }

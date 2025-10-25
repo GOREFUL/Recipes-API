@@ -62,7 +62,6 @@ public static class ServiceCollectionExtensions
         src.AddScoped<IDishImageRepository, DishImageRepository>();
         src.AddScoped<IIngredientUnitRepository, IngredientUnitRepository>();
         src.AddScoped<IMacronutrientsRepository, MacronutrientsRepository>();
-        src.AddScoped<IMicronutrientsRepository, MicronutrientsRepository>();
 
         // lookups
         src.AddScoped<ILevelRepository, LevelRepository>();
